@@ -27,8 +27,15 @@ Guided Segmentation Tutorial
     Cellori('wm989.tif').gui()
     
 3. After running the script, you will be greeted with the following window. Notice that no cells are currently in view.
-.. image:: ../demo/gui1.png
-           :width: 500
-           :alt: GUI 1
-4. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
 
+.. image:: ../demo/gui1.png
+           :width: 1000
+           :alt: GUI 1
+           
+4. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel. Here, we are looking at a colony of cells in the bottom left of the image.
+
+.. image:: ../demo/gui.png
+           :width: 1000
+           :alt: GUI 2
+           
+5. 
