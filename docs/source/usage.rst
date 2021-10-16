@@ -11,6 +11,8 @@ Install Cellori from `PyPI <https://pypi.org/project/cellori/>`_.
 .. code-block::
 
     pip install cellori
+    
+.. _tutorial:
 
 Guided Segmentation Tutorial
 ----------------
