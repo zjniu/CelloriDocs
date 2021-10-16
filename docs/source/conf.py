@@ -6,12 +6,12 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'Cellori'
+copyright = '2021, William Niu'
+author = 'William Niu'
 
-release = '0.1'
-version = '0.1.0'
+release = '2.4'
+version = '2.4'
 
 # -- General configuration
 
@@ -41,6 +41,7 @@ epub_show_urls = 'footnote'
 
 # -- Extension configuration
 
+autodoc_member_order = 'bysource'
 autodoc_mock_imports = [
     'matplotlib',
     'numpy',
