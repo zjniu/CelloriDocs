@@ -116,10 +116,10 @@ class Cellori:
         
         Returns
         -------
-            output : tuple (numpy.ndarray, numpy.ndarray) or numpy.ndarray
-                Segmentation results with format depending on the parameter ``segmentation_mode``. If ``masks``, the output is a tuple of numpy.ndarray ``(masks,coords)``. If ``coordinates``, the output is a numpy.ndarray ``coords``.
-                * masks: Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N.
-                * coords: Array of size (N, 2) with the coordinates of cell nuclei.
+            masks : numpy.ndarray
+                Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N. This array is only returned if the ``segmentation_mode`` is ``masks``.
+            coords : numpy.ndarray
+                Array of size (N, 2) with the coordinates of cell nuclei.
 
         Raises
         ------
