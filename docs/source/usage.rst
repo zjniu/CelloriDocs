@@ -6,6 +6,23 @@ Usage
 Installation
 ------------
 
-Creating recipes
+Install Cellori from `PyPI <https://pypi.org/project/cellori/>`_.
+
+.. code-block::
+
+    pip install cellori
+
+Guided Segmentation Tutorial
 ----------------
 
+1. Download the `sample image <../demo/wm989.tif>`_ (WM989 cells).
+2. Create a Python script with the following lines of code. Make sure that wm989.tif is in your current working directory.
+
+.. code-block:: python
+
+    from cellori import Cellori
+
+    Cellori('wm989.tif').gui()
+    
+3. You will be greeted with the following window. 
+4. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
