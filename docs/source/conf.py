@@ -37,3 +37,15 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+# -- Extension configuration
+
+autodoc_mock_imports = [
+    'matplotlib',
+    'numpy',
+    'cv2',
+    'pyqt5',
+    'skimage',
+    'stitchwell',
+    'tifffile'
+]
