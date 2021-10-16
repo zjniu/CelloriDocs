@@ -1,11 +1,11 @@
 API
 =====================
 
-.. automodule:: cellori.cellori
+.. automodule:: cellori
 
 Application
 -----------
-.. autoclass:: cellori.cellori.Cellori
+.. autoclass:: cellori.Cellori
     :members:
     :undoc-members:
     :show-inheritance:
