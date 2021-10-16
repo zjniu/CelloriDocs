@@ -3,45 +3,29 @@ Cellori
 
 **Cellori** (Cell Origin) is a fast and robust intensity-based algorithm for clustered nuclei segmentation in fluorescence microscopy images. It segments nuclei by applying a Gaussian filter to smoothen out background noise, calculating local thresholds to isolate the foreground, and splitting clustered nuclei via local maxima analysis. Masks are obtained using the watershed algorithm.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+Check out the :doc:`usage` section for further information, including how to :ref:`installation` the project.
 
 Examples
 --------
 
-<table border="1" cellpadding="5">
+.. list-table::
+   :widths: 50 50
+   :header-rows: 1
 
-<tr>
-<td align="center" valign="center">
-Raw Image
-</td>
-
-<td align="center" valign="center">
-Segmented Image
-</td>
-</tr>
-
-<tr>
-<td align="center" valign="center">
-<img src="docs/examples/str_raw.png" width="500" alt="Raw Image (STR)" />
-</td>
-
-<td align="center" valign="center">
-<img src="docs/examples/str_segmented.png" width="500" alt="Segmented Image (STR)" />
-</td>
-</tr>
-
-<tr>
-<td align="center" valign="center">
-<img src="docs/examples/wm989_raw.png" width="500" alt="Raw Image (STR)" />
-</td>
-
-<td align="center" valign="center">
-<img src="docs/examples/wm989_segmented.png" width="500" alt="Segmented Image (STR)" />
-</td>
-</tr>
-
-</table>
+   * - Raw Image
+     - Segmented Image
+   * - .. image:: ../examples/str_raw.png
+           :width: 500
+           :alt: Raw Image (STR)
+     - .. image:: ../examples/str_segmented.png
+           :width: 500
+           :alt: Segmented Image (STR)
+   * - .. image:: ../examples/wm989_raw.png
+           :width: 500
+           :alt: Raw Image (WM989)
+     - .. image:: ../examples/wm989_segmented.png
+           :width: 500
+           :alt: Segmented Image (WM989)
 
 Contents
 --------
