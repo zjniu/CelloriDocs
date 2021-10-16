@@ -1,7 +1,7 @@
 API
 =====================
 
-.. automodule:: cellori
+.. automodule:: cellori.cellori
 
 Application
 -----------
