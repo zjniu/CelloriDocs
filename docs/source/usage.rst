@@ -38,4 +38,9 @@ Guided Segmentation Tutorial
            :width: 1000
            :alt: GUI 2
            
-5. 
+5. Automatic parameter detection should have already chosen values that work well, but they can be manually adjusted if desired. Here is a brief description of each parameter.
+    * Sigma: 
+    * Block Size: 
+    * Nuclei Diameter: 
+
+6. Click on the "Segment" button to segment the entire image.
