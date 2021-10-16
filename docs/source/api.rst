@@ -3,8 +3,8 @@ API
 
 .. automodule:: cellori.cellori
 
-Application
------------
+Cellori supports both GUI and command line options for nuclei segmentation.
+
 .. autoclass:: cellori.cellori.Cellori
     :members:
     :undoc-members:
