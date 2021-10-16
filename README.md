@@ -62,7 +62,7 @@ from cellori import Cellori
 
 Cellori('wm989.tif').gui()
 ```
-3. You will be greeted with the following window. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
+3. After running the script, you will be greeted with the following window. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
 
 <img src="docs/demo/gui.png" alt="Cellori GUI" width="1000"/>
 
