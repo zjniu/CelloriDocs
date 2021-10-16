@@ -21,9 +21,9 @@ class Cellori:
 
     Raises
     ------
-    ValueError : If ``image`` is an invalid image path or array.
-    ValueError : If ``nuclei_channel`` is not specified for an ``image`` with multiple channels.
-    ValueError : If ``image`` has invalid dimensions.
+        ValueError : If ``image`` is an invalid image path or array.
+        ValueError : If ``nuclei_channel`` is not specified for an ``image`` with multiple channels.
+        ValueError : If ``image`` has invalid dimensions.
     """
 
     def __init__(self,image,**kwargs):
@@ -123,8 +123,8 @@ class Cellori:
 
         Raises
         ------
-        ValueError : If ``segmentation_mode`` is an invalid segmentation mode.
-        ValueError : If ``coordinate_format`` is an invalid coordinate format.
+            ValueError : If ``segmentation_mode`` is an invalid segmentation mode.
+            ValueError : If ``coordinate_format`` is an invalid coordinate format.
         """
 
         if segmentation_mode == 'masks':
