@@ -8,7 +8,7 @@ The Cellori algorithm segments nuclei by applying a Gaussian filter to smoothen 
 
 ## Examples
 
-<table width='700' border="1" cellpadding="5">
+<table border="1" cellpadding="5">
 
 <tr>
 <td align="center" valign="center">
@@ -22,21 +22,21 @@ Segmented Image
 
 <tr>
 <td align="center" valign="center">
-<img src="docs/examples/str_raw.png" alt="Raw Image (STR)" />
+<img src="docs/examples/str_raw.png" width="500" alt="Raw Image (STR)" />
 </td>
 
 <td align="center" valign="center">
-<img src="docs/examples/str_segmented.png" alt="Segmented Image (STR)" />
+<img src="docs/examples/str_segmented.png" width="500" alt="Segmented Image (STR)" />
 </td>
 </tr>
 
 <tr>
 <td align="center" valign="center">
-<img src="docs/examples/wm989_raw.png" alt="Raw Image (STR)" />
+<img src="docs/examples/wm989_raw.png" width="500" alt="Raw Image (STR)" />
 </td>
 
 <td align="center" valign="center">
-<img src="docs/examples/wm989_segmented.png" alt="Segmented Image (STR)" />
+<img src="docs/examples/wm989_segmented.png" width="500" alt="Segmented Image (STR)" />
 </td>
 </tr>
 
@@ -64,14 +64,14 @@ Cellori('wm989.tif').gui()
 ```
 3. You will be greeted with the following window. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
 
-<img src="docs/demo/gui.png" alt="Cellori GUI" width='700'/>
+<img src="docs/demo/gui.png" alt="Cellori GUI" width="1000"/>
 
 4. Automatic parameter detection should have already chosen values that work well, but they can be manually adjusted if desired. Click on the "Segment" button to segment the entire image.
 5. The segmentation results will be shown in a separate window. Navigate the image using the toolbar at the top of the window. You may use the pan and zoom tools on either the left or right panel. Note that to avoid clutter, cell outlines will only appear once you are sufficiently zoomed in.
 
-<img src="docs/demo/segmentation.png" alt="Cellori GUI" width='700'/>
+<img src="docs/demo/segmentation.png" alt="Cellori GUI" width="1000"/>
 
 6. The buttons at the bottom of the window give you the option to save the segmentation results as CSV or text files for post-processing workflows.
-    * Masks: labeled array of the same size as the original image with background pixels as $0$ and cells as $1,2,3,\ldots,N$.
-    * XY Coordinates: array of size $N\times 2$ with the locations of cell nuclei as coordinates for plotting on standard XY axes.
-    * Array Indices: array of size $N\times 2$ with the locations of cell nuclei as indices of the original image array.
+    * Masks: labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N.
+    * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
+    * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
