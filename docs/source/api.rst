@@ -1,4 +1,4 @@
-API
+Cellori API
 =====================
 
 .. automodule:: cellori.cellori
