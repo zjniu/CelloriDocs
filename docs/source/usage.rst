@@ -53,6 +53,9 @@ Guided Segmentation Tutorial
    * - Sigma = 0.5
      - Sigma = 1.5
      - Sigma = 3.5
+   * - 69 Cells
+     - 65 Cells
+     - 53 Cells
    * - .. image:: ../demo/sigma0.5.png
            :width: 300
            :alt: Sigma = 0.5
@@ -72,6 +75,9 @@ Guided Segmentation Tutorial
    * - Block Size = 3
      - Block Size = 5
      - Block Size = 13
+   * - 0 Cells
+     - 61 Cells
+     - 65 Cells
    * - .. image:: ../demo/blocksize3.png
            :width: 300
            :alt: Block Size = 3
@@ -90,10 +96,38 @@ Guided Segmentation Tutorial
            :width: 1000
            :alt: GUI 3
            
-10. 
+10. If we increase the block size to 25, many dots appear near the edge of the bright spot. As we lose locality with an increasing block size, it becomes more difficult to determine whether this spot is an actual cell or just abnormally bright background.
 
-.. image:: ../demo/gui3.png
+.. image:: ../demo/gui4.png
            :width: 1000
-           :alt: GUI 3
+           :alt: GUI 4
+           
+11. Even at a block size of 13, you may have noticed a few dots being marked within the bright spot. Returning to a block size of 13, we can increase the contrast using the slider and zoom in on a smaller region. We will observe three cells within the bright spot that would otherwise be missed using a traditional global thresholding method.
+
+.. image:: ../demo/gui5.png
+           :width: 1000
+           :alt: GUI 5
+           
+12. Finally, we will explore the efforts of the nuclei diameter parameter. This is perhaps the most basic out of the three parameters, as it simply disregards all objects smaller than the specified radii. While basic, selecting the wrong value for this parameter may have devastating effects.
+
+.. list-table::
+   :widths: 33 33 33
+   :header-rows: 1
+
+   * - Nuclei Diameter = 1
+     - Nuclei Diameter = 6
+     - Nuclei Diameter = 15
+   * - 8116 Cells
+     - 65 Cells
+     - 12 Cells
+   * - .. image:: ../demo/nucleidiameter1.png
+           :width: 300
+           :alt: Nuclei Diameter = 1
+     - .. image:: ../demo/default.png
+           :width: 300
+           :alt: Nuclei Diameter = 6
+     - .. image:: ../demo/nucleidiameter15.png
+           :width: 300
+           :alt: Nuclei Diameter = 15
 
 11. Click on the "Segment" button to segment the entire image.
