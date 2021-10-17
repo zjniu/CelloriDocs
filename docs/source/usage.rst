@@ -44,7 +44,7 @@ Guided Segmentation Tutorial
     * Block Size: Odd size of pixel neighborhood which is used for local thresholding (e.g., 3, 5, 7, ..., 21).
     * Nuclei Diameter: Estimated lower bound of nuclei diameters. Any objects smaller than this threshold will not be considered for segmentation.
 
-6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of background noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0.5, notice that some single nuclei are being split up into 2 or even 3 separate nuclei. this could lead to worse clustered nuclei splitting.
+6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of background noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0.5, notice that some single nuclei are being split up into two or even three separate nuclei. However, a sigma that is too high could fail to split clustered nuclei, or worse, miss nuclei altogether, as seen in the segmentation when sigma is 3.5.
 
 .. list-table::
    :widths: 33 33 33
@@ -56,7 +56,7 @@ Guided Segmentation Tutorial
    * - .. image:: ../demo/sigma0.5.png
            :width: 300
            :alt: Sigma = 0.5
-     - .. image:: ../demo/sigma1.5.png
+     - .. image:: ../demo/default.png
            :width: 300
            :alt: Sigma = 1.5
      - .. image:: ../demo/sigma3.5.png
