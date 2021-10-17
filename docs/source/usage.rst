@@ -18,7 +18,7 @@ Guided Segmentation Tutorial
 ----------------
 
 1. Download the `sample image <https://github.com/SydShafferLab/Cellori/tree/main/docs/demo/wm989.tif>`_ (WM989 cells).
-2. Create a Python script with the following lines of code. Make sure that wm989.tif is in your current working directory.
+2. Create a Python script with the following lines of code. Make sure that wm989.tif is in your current working directory. If you are using your own image, see the 
 
 .. code-block:: python
 
@@ -145,3 +145,15 @@ Guided Segmentation Tutorial
     * Masks: labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N.
     * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
     * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
+
+15. These same segmentation output can be achieved without the GUI using built-in command line functions.
+
+.. code-block:: python
+
+    from cellori import Cellori
+
+    # Use automatic parameter detection.
+    masks,coords = Cellori('wm989.tif').segment()
+    
+    # Use custom parameters.
+    masks,coords = Cellori('wm989.tif').segment(sigma=1.5,block_size=13,nuclei_diameter=6)
