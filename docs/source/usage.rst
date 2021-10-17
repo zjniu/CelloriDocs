@@ -88,27 +88,25 @@ Guided Segmentation Tutorial
            :width: 300
            :alt: Block Size = 13
 
-8. Next, we will explore the efforts of the block size parameter. A small block size works well when cell density is low, in which you are guaranteed to capture both background and foreground in any small neighborhood, allowing for successful local thresholding. If the cell density is high, a larger block size may be necessary to sample enough background, especially when trying to capture cells with low to intermediate intensity. Here, our cells are neither too spare nor too dense, so any value of above 7 works well. When the block size is too small, we may only capture some cells or none at all, as seen in the segmentation for block sizes 3 and 5. In general, use a block size that is larger than your estimated cell diameter.
-
-9. It is usually safer to use a larger block size, but one that is too large essentially equate to taking a global threshold, which is the exact issue that local thresholding aims to solve. Notice that this image contains a large bright background spot. Increase the preview size using the slider and select it as the preview region.
+8. It is usually safer to use a larger block size, but one that is too large essentially equate to taking a global threshold, which is the exact issue that local thresholding aims to solve. Notice that this image contains a large bright background spot. Increase the preview size using the slider and select it as the preview region.
 
 .. image:: ../demo/gui3.png
            :width: 1000
            :alt: GUI 3
            
-10. If we increase the block size to 25, many dots appear near the edge of the bright spot. As we lose locality with an increasing block size, it becomes more difficult to determine whether this spot is an actual cell or just abnormally bright background.
+9. If we increase the block size to 25, many dots appear near the edge of the bright spot. As we lose locality with an increasing block size, it becomes more difficult to determine whether this spot is an actual cell or just abnormally bright background.
 
 .. image:: ../demo/gui4.png
            :width: 1000
            :alt: GUI 4
            
-11. Even at a block size of 13, you may have noticed a few dots being marked within the bright spot. Returning to a block size of 13, we can increase the contrast using the slider and zoom in on a smaller region. We will observe three cells within the bright spot that would otherwise be missed using a traditional global thresholding method.
+10. Even at a block size of 13, you may have noticed a few dots being marked within the bright spot. Returning to a block size of 13, we can increase the contrast using the slider and zoom in on a smaller region. We will observe three cells within the bright spot that would otherwise be missed using a traditional global thresholding method.
 
 .. image:: ../demo/gui5.png
            :width: 1000
            :alt: GUI 5
            
-12. Finally, we will explore the efforts of the nuclei diameter parameter. This is perhaps the most basic out of the three parameters, as it simply disregards all objects smaller than the specified radii. While basic, selecting the wrong value for this parameter may have devastating effects.
+11. Finally, we will explore the efforts of the nuclei diameter parameter. This is perhaps the most basic out of the three parameters, as it simply disregards all objects smaller than the specified radii. While basic, selecting the wrong value for this parameter may have devastating effects.
 
 .. list-table::
    :widths: 33 33 33
@@ -130,4 +128,20 @@ Guided Segmentation Tutorial
            :width: 300
            :alt: Nuclei Diameter = 15
 
-11. Click on the "Segment" button to segment the entire image.
+12. Click on the "Segment" button to segment the entire image. The segmentation results will be shown in a separate window. Navigate the image using the toolbar at the top of the window. You may use the pan and zoom tools on either the left or right panel.
+
+.. image:: ../demo/segmentation.png
+           :width: 1000
+           :alt: Segmentation 1
+
+13. Note that to avoid clutter, cell outlines will only appear once you are sufficiently zoomed in.
+
+.. image:: ../demo/segmentation2.png
+           :width: 1000
+           :alt: Segmentation 2
+           
+14. The buttons at the bottom of the window give you the option to save the segmentation results as CSV or text files for post-processing workflows.
+
+    * Masks: labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N.
+    * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
+    * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
