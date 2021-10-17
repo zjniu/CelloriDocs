@@ -18,7 +18,7 @@ Guided Segmentation Tutorial
 ----------------
 
 1. Download the `sample image <https://github.com/SydShafferLab/Cellori/tree/main/docs/demo/wm989.tif>`_ (WM989 cells).
-2. Create a Python script with the following lines of code. Make sure that wm989.tif is in your current working directory. If you are using your own image, see the 
+2. Create a Python script with the following lines of code. Make sure that wm989.tif is in your current working directory. If you are using your own image file, also see the :doc:`api` for additional parameters that must be specified.
 
 .. code-block:: python
 
@@ -146,7 +146,7 @@ Guided Segmentation Tutorial
     * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
     * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
 
-15. These same segmentation output can be achieved without the GUI using built-in command line functions.
+15. These same segmentation output can be achieved without the GUI using built-in command line functions. 
 
 .. code-block:: python
 
