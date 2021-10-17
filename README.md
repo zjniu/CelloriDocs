@@ -64,12 +64,12 @@ Cellori('wm989.tif').gui()
 ```
 3. After running the script, you will be greeted with the following window. Change the preview region (indicated by the red box) by clicking anywhere on the left panel or using your arrow keys. The center of each nucleus is marked with a red dot, and the total count in the preview region is shown above the right panel.
 
-<img src="docs/demo/gui.png" alt="Cellori GUI" width="1000"/>
+<img src="docs/demo/gui.png" alt="GUI" width="1000"/>
 
 4. Automatic parameter detection should have already chosen values that work well, but they can be manually adjusted if desired. Click on the "Segment" button to segment the entire image.
 5. The segmentation results will be shown in a separate window. Navigate the image using the toolbar at the top of the window. You may use the pan and zoom tools on either the left or right panel. Note that to avoid clutter, cell outlines will only appear once you are sufficiently zoomed in.
 
-<img src="docs/demo/segmentation.png" alt="Cellori GUI" width="1000"/>
+<img src="docs/demo/segmentation.png" alt="Segmentation" width="1000"/>
 
 6. The buttons at the bottom of the window give you the option to save the segmentation results as CSV or text files for post-processing workflows.
     * Masks: labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ..., N.
