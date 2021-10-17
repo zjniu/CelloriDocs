@@ -146,7 +146,7 @@ Guided Segmentation Tutorial
     * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
     * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
 
-15. These same segmentation output can be achieved without the GUI using built-in command line functions. 
+15. These same segmentation outputs can be achieved without the GUI using built-in command line functions.
 
 .. code-block:: python
 
