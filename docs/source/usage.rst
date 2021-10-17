@@ -63,4 +63,23 @@ Guided Segmentation Tutorial
            :width: 300
            :alt: Sigma = 3.5
 
+6. Next, we will explore the efforts of the block size parameter. A small block size works well when cell density is low, in which you are guaranteed to capture both background and foreground in any small neighborhood, allowing for successful local thresholding. If the cell density is high, a larger block size may be necessary to sample enough background, especially when trying to capture cells with low to intermediate intensity. Here, our cells are neither too spare nor too dense, so any value of above 7 works well. Notice that when the block size is too small, we may only capture some cells or none at all, as seen in the segmentation for block sizes 3 and 5. In general, use a block size that is larger than your estimated cell diameter.
+
+.. list-table::
+   :widths: 33 33 33
+   :header-rows: 1
+
+   * - Sigma = 0.5
+     - Sigma = 1.5
+     - Sigma = 3.5
+   * - .. image:: ../demo/blocksize3.png
+           :width: 300
+           :alt: Block Size = 3
+     - .. image:: ../demo/blocksize5.png
+           :width: 300
+           :alt: Block Size = 5
+     - .. image:: ../demo/default.png
+           :width: 300
+           :alt: Block Size = 13
+
 7. Click on the "Segment" button to segment the entire image.
