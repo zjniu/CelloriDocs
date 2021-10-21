@@ -111,13 +111,11 @@ class Cellori:
             nuclei_diameter : int, optional, default None
                 Estimated lower bound of nuclei diameters. Any objects smaller than this threshold will not be considered for segmentation. If ``None``, the value will be determined by automatic parameter detection.
             segmentation_mode : {'masks', 'coordinates'}, optional, default 'masks'
-                * 'masks': Get masks using the watershed algorithm in addition to finding nuclei coordinates.
-                
-                * 'coordinates': Find the coordinates of nuclei centers only.
+                * ‘masks’: Get masks using the watershed algorithm in addition to finding nuclei coordinates.
+                * ‘coordinates’: Find the coordinates of nuclei centers only.
             coordinate_format : {'xy', 'indices'}, optional, default indices
-                * 'xy': Format coordinates for plotting on standard XY axes.
-                
-                * 'indices': Format coordinates as indices of the original image array.
+                * ‘xy’: Format coordinates for plotting on standard XY axes.
+                * ‘indices’: Format coordinates as indices of the original image array.
         
         Returns
         -------
