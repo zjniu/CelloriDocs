@@ -48,6 +48,7 @@ autodoc_mock_imports = [
     'numpy',
     'cv2',
     'pyside6',
+    'scipy',
     'SimpleITK',
     'skimage',
     'stitchwell',
