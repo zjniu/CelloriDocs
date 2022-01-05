@@ -162,14 +162,18 @@ Guided Segmentation Tutorial
     * XY Coordinates: array of size (N, 2) with the locations of cell nuclei as coordinates for plotting on standard XY axes.
     * Array Indices: array of size (N, 2) with the locations of cell nuclei as indices of the original image array.
 
-15. These same segmentation outputs can be achieved without the GUI using built-in command-line functions. For more information about these functions, specifically their parameters and outputs, check out the :doc:`api` documentation.
+15. These same segmentation outputs can be achieved without the GUI using built-in command-line functions. For more information about these functions and other helper functions for post-processing, specifically their parameters and outputs, check out the :doc:`api` documentation.
 
 .. code-block:: python
 
-    from cellori import Cellori
+    from cellori import Cellori, utils
 
-    # Use automatic parameter detection.
+    # Segment using automatic parameter detection.
     masks, coords, image = Cellori('wm989.tif').segment()
     
-    # Use custom parameters.
+    # Segment using custom parameters.
     masks, coords, image = Cellori('wm989.tif').segment(segmentation_mode='combined', threshold_locality=0.5, sigma=1.06, nuclei_diameter=8.44)
+    
+    # Create segmentation overlay.
+    overlay = utils.overlay_segmentation(image, masks)
+    
