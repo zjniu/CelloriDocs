@@ -56,4 +56,4 @@ autodoc_mock_imports = [
 ]
 
 def setup(app):
-    app.add_css_file('styles.css')
+    app.add_stylesheet('styles.css')
