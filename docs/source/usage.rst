@@ -50,7 +50,29 @@ Guided Segmentation Tutorial
    * Gaussian Sigma: Gaussian sigma used for denoising.
    * Nuclei Diameter: Estimated lower bound of nuclei diameters. Any objects smaller than this threshold will not be considered for segmentation.
     
-6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, as seen in the segmentation when sigma is 5, or worse, miss nuclei altogether.
+7. First, we will explore the effects of the threshold locality parameter. The optimal value for this parameter is highly image-dependent. If background intensity is mostly consistent throughout the entire image, then local thresholding may not be necessary, and any value will yield equally good results. Otherwise, setting a higher threshold locality may help to account for inconsistencies in background intensity by considering local thresholding more heavily. In this region of the image, threshold locality appears to have no effect on the segmentation.
+
+.. list-table::
+   :widths: 33 33 33
+   :header-rows: 1
+
+   * - Threshold Locality = 0
+     - Threshold Locality = 0.5
+     - Threshold Locality = 1
+   * - 65 Cells
+     - 65 Cells
+     - 65 Cells
+   * - .. image:: ../demo/threshold_locality0.png
+           :width: 300
+           :alt: Threshold Locality = 0
+     - .. image:: ../demo/default.png
+           :width: 300
+           :alt: Threshold Locality = 0.5
+     - .. image:: ../demo/threshold_locality1.png
+           :width: 300
+           :alt: Threshold Locality = 1
+    
+8. Next, we will explore the effects of the Gaussian sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, as seen in the segmentation when sigma is 5, or worse, miss nuclei altogether.
 
 .. list-table::
    :widths: 33 33 33
@@ -62,37 +84,15 @@ Guided Segmentation Tutorial
    * - 66 Cells
      - 65 Cells
      - 62 Cells
-   * - .. image:: ../demo/sigma0.png
+   * - .. image:: ../demo/gaussian_sigma0.png
            :width: 300
            :alt: Sigma = 0
      - .. image:: ../demo/default.png
            :width: 300
            :alt: Sigma = 1.06
-     - .. image:: ../demo/sigma5.png
+     - .. image:: ../demo/gaussian_sigma5.png
            :width: 300
            :alt: Sigma = 5
-
-7. Next, we will explore the efforts of the block size parameter. A small block size works well when cell density is low, in which you are guaranteed to capture both background and foreground in any small neighborhood, allowing for successful local thresholding. If the cell density is high, a larger block size may be necessary to sample enough background, especially when trying to capture cells with low to intermediate intensity. Here, our cells are neither too sparse nor too dense, so any value of above 7 works well. Notice that when the block size is too small, we may only capture some cells or none at all, as seen in the segmentation for block sizes 3 and 5. In general, use a block size that is larger than your estimated cell diameter.
-
-.. list-table::
-   :widths: 33 33 33
-   :header-rows: 1
-
-   * - Block Size = 3
-     - Block Size = 5
-     - Block Size = 13
-   * - 0 Cells
-     - 61 Cells
-     - 65 Cells
-   * - .. image:: ../demo/blocksize3.png
-           :width: 300
-           :alt: Block Size = 3
-     - .. image:: ../demo/blocksize5.png
-           :width: 300
-           :alt: Block Size = 5
-     - .. image:: ../demo/default.png
-           :width: 300
-           :alt: Block Size = 13
 
 8. It is usually safer to use a larger block size, but one that is too large essentially equates to taking a global threshold, which is the exact issue that local thresholding aims to solve. Notice that this image contains a large bright background spot. Increase the preview size using the slider and select it as the preview region.
 
