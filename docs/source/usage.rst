@@ -169,7 +169,7 @@ Guided Segmentation Tutorial
     from cellori import Cellori
 
     # Use automatic parameter detection.
-    masks,coords = Cellori('wm989.tif').segment()
+    masks, coords, image = Cellori('wm989.tif').segment()
     
     # Use custom parameters.
-    masks,coords = Cellori('wm989.tif').segment(segmentation_mode='combined', threshold_locality=0.5, sigma=1.06, nuclei_diameter=8.44)
+    masks, coords, image = Cellori('wm989.tif').segment(segmentation_mode='combined', threshold_locality=0.5, sigma=1.06, nuclei_diameter=8.44)
