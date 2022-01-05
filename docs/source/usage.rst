@@ -44,13 +44,13 @@ Guided Segmentation Tutorial
    * Intensity: Use an intensity-only maxima metric.
    * Morphology: Use a morphology-only maxima metric.
 
-5. Automatic parameter detection should have already chosen values that work well, but they can be manually adjusted if desired. Here is a brief description of each parameter.
+6. Automatic parameter detection should have already chosen values that work well, but they can be manually adjusted if desired. Here is a brief description of each parameter.
 
    * Threshold Locality: Fractional weight on local intensity used in thresholding. The value must be between 0 (global thresholding) and 1 (local thresholding).
    * Gaussian Sigma: Gaussian sigma used for denoising.
    * Nuclei Diameter: Estimated lower bound of nuclei diameters. Any objects smaller than this threshold will not be considered for segmentation.
     
-6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, or worse, miss nuclei altogether, as seen in the segmentation when sigma is 5.
+6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, as seen in the segmentation when sigma is 5, or worse, miss nuclei altogether.
 
 .. list-table::
    :widths: 33 33 33
