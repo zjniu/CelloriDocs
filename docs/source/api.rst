@@ -1,6 +1,9 @@
 Cellori API
 =====================
 
+Cellori Class
+~~~~~~~~~~~~~~~~~~~~~
+
 .. automodule:: cellori.cellori
 
 Cellori supports both GUI and command line options for nuclei segmentation.
@@ -10,3 +13,9 @@ Cellori supports both GUI and command line options for nuclei segmentation.
     :undoc-members:
     :show-inheritance:
     :private-members:
+
+Helper Functions
+~~~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: cellori.utils
+   :members:
