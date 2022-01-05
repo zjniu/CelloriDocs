@@ -1,7 +1,3 @@
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('../..'))
-
 # Configuration file for the Sphinx documentation builder.
 
 # -- Project information
@@ -36,7 +32,9 @@ templates_path = ['_templates']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
-html_style = 'css/styles.css'
+html_css_files = [
+    'css/styles.css',
+]
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
