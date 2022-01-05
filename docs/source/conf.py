@@ -46,7 +46,8 @@ autodoc_mock_imports = [
     'matplotlib',
     'numpy',
     'cv2',
-    'pyqt5',
+    'pyside6',
+    'SimpleITK',
     'skimage',
     'stitchwell',
     'tifffile'
