@@ -44,6 +44,7 @@ epub_show_urls = 'footnote'
 autodoc_member_order = 'bysource'
 autodoc_mock_imports = [
     'matplotlib',
+    'numba',
     'numpy',
     'cv2',
     'pyside6',
