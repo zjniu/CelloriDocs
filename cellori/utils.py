@@ -1,132 +1,199 @@
-import matplotlib
-import matplotlib.patches as patches
+import cv2 as cv
 import numpy as np
-import random
 
-from matplotlib.path import Path
-from matplotlib.widgets import LassoSelector
-from numba import njit
-from scipy import ndimage as ndi
+from cellori.netmap import get_touch_map, ncolor_label, render_net
+from skimage import exposure, measure
 
-matplotlib.use('Qt5Agg')
 
-class SelectFromCollection:
+def overlay_segmentation(image, masks, overlay_mode='both', mask_alpha=0.5, mask_ncolors=5, sinebow_theta=1,
+                         outline_color=None, contrast_z=5, gamma=1):
+    """Overlay segmentation results on the original image.
 
-    def __init__(self, ax, collection, alpha_other=0.1):
-        self.canvas = ax.figure.canvas
-        self.collection = collection
-        self.alpha_other = alpha_other
+    Parameters
+    ----------
+        image : numpy.ndarray
+            Array of the image segmented by the Cellori algorithm.
+        masks : numpy.ndarray
+            Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ...,
+            N.
+        overlay_mode : {'both', 'masks', 'outlines'}, optional, default 'both'
+            * ‘both’: Overlay both masks and outlines.
+            * ‘masks’: Overlay masks only.
+            * ‘outlines’: Overlay outlines only.
+        mask_alpha : float, optional, default 0.5
+            Alpha value of the mask overlay. The value must be between 0 (transparent) and 1 (opaque).
+        mask_ncolors : int, optional, default 5
+            Number of colors used for coloring the mask overlay.
+        sinebow_theta : float, optional, default 1
+            Phase factor in radians for color generation using sinebow.
+        outline_color : tuple, optional, default None
+            Color of outlines in RGB, formatted as (r,g,b).
+        contrast_z : float, optional, default 5
+            Number of standard deviations from the mean used for intensity rescaling.
+        gamma : float, optional, default 1
+            Gamma value used for brightness adjustment.
+    
+    Returns
+    -------
+        image : numpy.ndarray
+            Array of the same size as the original image with overlayed segmentation results.
+    """
 
-        self.xys = collection.get_offsets()
-        self.Npts = len(self.xys)
-        self.selecting = False
-        self.selected_path = None
+    if overlay_mode not in ['both', 'masks', 'outlines']:
+        raise ValueError("Invalid overlay mode.")
 
-        # Ensure that we have separate colors for each object
-        self.fc = collection.get_facecolors()
-        print(self.fc)
-        if len(self.fc) == 0:
-            raise ValueError('Collection must have a facecolor')
-        elif len(self.fc) == 1:
-            self.fc = np.tile(self.fc, (self.Npts, 1))
+    if gamma != 1:
+        image = image ** gamma
+    image = exposure.rescale_intensity(image, (0, np.mean(image) + contrast_z * np.std(image)), (0, 1))
+    image = np.repeat(image, 3).reshape(*image.shape, 3)
 
-        self.lasso = LassoSelector(ax, onselect=self.onselect, lineprops={"c": "b"})
-        self.ind = []
+    if overlay_mode != 'outlines':
+        idx = get_touch_map(masks)
+        colors = render_net(idx, 4, 10)
+        color_label = ncolor_label(masks, colors)
+        masks_rgb = _relabel(masks, color_label)
+        masks_rgb = _masks_to_rgb(masks_rgb, mask_ncolors, sinebow_theta)
+        masks_nonzero = masks > 0
+        image[masks_nonzero] = image[masks_nonzero] * (1 - mask_alpha) + masks_rgb[masks_nonzero] * mask_alpha
 
-    def onselect(self, verts):
-        path = Path(verts,closed=True)
-        print(path)
-        ind = np.nonzero(path.contains_points(self.xys))[0]
-        if len(ind) > 0:
-            self.path = path
-            self.ind = ind
-            self.selecting = True
-            self.fc[:, -1] = self.alpha_other
-            self.fc[self.ind, -1] = 1
-        # else:
-        #     self.selecting = False
-        #     self.fc[:, -1] = 1
-        self.collection.set_facecolors(self.fc)
-        self.canvas.draw_idle()
+    image = (image * 255).astype(np.uint8)
 
-    def disconnect(self):
-        self.lasso.disconnect_events()
-        self.fc[:, -1] = 1
-        self.collection.set_facecolors(self.fc)
-        self.canvas.draw_idle()
+    if overlay_mode != 'masks':
 
-def crop_colonies(coords):
+        if outline_color is None:
+            outline_color = (255, 255, 255) if overlay_mode == 'both' else (0, 0, 255)
 
-    import matplotlib.pyplot as plt
+        image[_masks_to_outlines(masks)] = outline_color
 
-    fig = plt.figure(figsize=(6,6))
-    fig.canvas.manager.set_window_title('Crop Colonies')
-    ax = plt.subplot(1,1,1)
-    ax.set_aspect('equal','box')
+    return image
 
-    pts = ax.scatter(coords[:, 0], coords[:, 1], s=3, c='r')
-    selector = SelectFromCollection(ax, pts)
 
-    def accept(event):
-        if event.key == " ":
-            if len(selector.ind) > 0:
-                selector.selecting = False
-                print("Selected points:")
-                print(selector.xys[selector.ind])
-                selector.fc[:, -1] = 1
-                selector.collection.set_facecolors(selector.fc)
-                patch = patches.PathPatch(selector.path,fc='none',lw=2,picker=True)
-                ax.add_patch(patch)
-                selector.fc[selector.ind, 0] = 0
-                selector.fc[selector.ind, 2] = 1
-                selector.collection.set_facecolors(selector.fc)
-                fig.canvas.draw_idle()
-        if event.key == 'escape':
-            selector.selecting = False
-            selector.ind = []
-            selector.fc[:, -1] = 1
-            selector.collection.set_facecolors(selector.fc)
-            selector.canvas.draw_idle()
-        if event.key == "backspace":
-            if selector.selecting == False:
-                print('bruh')
-        if event.key == "enter":
-            selector.disconnect()
-            ax.set_title("")
-            fig.canvas.draw()
+def _masks_to_rgb(masks, ncolors, theta):
+    """(For internal use) Convert masks to RGB image.
 
-    def onpick(event):
-        path = event.artist.get_path()
-        print(path)
-        ind = np.nonzero(path.contains_points(selector.collection.get_offsets()))[0]
-        selector.fc[:, -1] = selector.alpha_other
-        selector.fc[ind, -1] = 1
-        selector.collection.set_facecolors(selector.fc)
-        fig.canvas.draw_idle()
+    Parameters
+    ----------
+        masks : numpy.ndarray
+            Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ...,
+            N.
+    
+    Returns
+    -------
+        masks : numpy.ndarray
+            Relabeled mask array with consecutive integer assignments for clustered regions.
+    """
 
-    fig.canvas.mpl_connect("key_press_event", accept)
-    fig.canvas.mpl_connect('pick_event', onpick)
-    ax.set_title("Press enter to accept selected points.")
+    color_map = _sinebow(ncolors, theta)
+    colors = (masks % ncolors + 1) * (masks > 0)
+    regions = 3 * colors[colors >= 1]
+    regions = np.repeat(regions, 3).reshape(-1, 3) - np.array([2, 1, 0])
+    masks = np.expand_dims(masks, -1)
+    masks = np.repeat(masks, 3, -1).astype(float)
+    masks[masks > 0] = _vector_map(regions, color_map).flatten()
 
-    plt.show()
+    return masks
 
-# import numpy as np
-# import matplotlib.pyplot as plt
 
-# fig, ax = plt.subplots()
-# ax.set_title('click on points')
+def _masks_to_outlines(masks):
+    """(For internal use) Convert masks to outlines for displaying GUI segmentation results.
 
-# line, = ax.plot(np.random.rand(100), 'o',
-#                 picker=True, pickradius=5)  # 5 points tolerance
+    Parameters
+    ----------
+        masks : numpy.ndarray
+            Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ...,
+            N.
+    
+    Returns
+    -------
+        outlines : numpy.ndarray
+            Array of the same size as the original image with outlines around each cell.
+    """
 
-# def onpick(event):
-#     thisline = event.artist
-#     xdata = thisline.get_xdata()
-#     ydata = thisline.get_ydata()
-#     ind = event.ind
-#     points = tuple(zip(xdata[ind], ydata[ind]))
-#     print('onpick points:', points)
+    outlines = np.zeros(masks.shape, dtype=bool)
 
-# fig.canvas.mpl_connect('pick_event', onpick)
+    regions = measure.regionprops(masks, cache=False)
+    for region in regions:
+        mask = region.image.astype(np.uint8)
+        contours = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+        contours = np.concatenate(contours[0], axis=0).squeeze().T
+        outlines[contours[1] + region.slice[0].start, contours[0] + region.slice[1].start] = 1
 
-# plt.show()
+    return outlines
+
+
+def _relabel(masks, color_label):
+    """(For internal use) Relabel mask array by assigning consecutive integers to clustered regions.
+
+    Parameters
+    ----------
+        masks : numpy.ndarray
+            Labeled array of the same size as the original image with background pixels as 0 and cells as 1, 2, 3, ...,
+            N.
+    
+    Returns
+    -------
+        masks : numpy.ndarray
+            Relabeled mask array with consecutive integer assignments for clustered regions.
+    """
+
+    masks = measure.label(masks > 0)
+    masks = masks + color_label / (np.max(color_label) + 1)
+    regions = masks[masks > 0]
+    float_ids = np.unique(regions)
+    int_ids = np.argsort(float_ids) + 1
+    id_map = dict(zip(float_ids, int_ids))
+    masks[masks > 0] = _vector_map(regions, id_map)
+    masks = masks.astype(int)
+
+    return masks
+
+
+def _sinebow(ncolors, theta):
+    """(For internal use) Generate n-color dictionary using the sinebow algorithm.
+
+    Parameters
+    ----------
+        ncolors : int
+            Number of colors to generate.
+        theta : float
+            Phase factor in radians for color generation.
+    
+    Returns
+    -------
+        color_dict : dict
+            Color dictionary.
+    """
+
+    color_dict = dict()
+
+    for n in range(ncolors):
+        angle = 2 * np.pi * n / ncolors + theta
+        r = ((np.sin(angle)) / 2 + 0.5)
+        g = ((np.sin(angle + 2 * np.pi / 3)) / 2 + 0.5)
+        b = ((np.sin(angle + 4 * np.pi / 3)) / 2 + 0.5)
+        color_dict.update({3 * n + 1: r})
+        color_dict.update({3 * n + 2: g})
+        color_dict.update({3 * n + 3: b})
+
+    return color_dict
+
+
+def _vector_map(array, array_map):
+    """(For internal use) Vectorized implementation for applying a map to an array.
+
+    Parameters
+    ----------
+        array : numpy.ndarray
+            Array input.
+        array_map : dict
+            Map to be applied on the array.
+    
+    Returns
+    -------
+        array : numpy.ndarray
+            Array output.
+    """
+
+    array = np.vectorize(array_map.__getitem__)(array)
+
+    return array

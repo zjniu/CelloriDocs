@@ -1,8 +1,8 @@
-from setuptools import setup,find_packages
+from setuptools import setup, find_packages
 
-VERSION = "2.4"
+VERSION = "3.0"
 DESCRIPTION = "Cellori"
-LONG_DESCRIPTION = "A fast and robust intensity-based algorithm for clustered nuclei segmentation in fluorescence microscopy images."
+LONG_DESCRIPTION = "A fast and robust algorithm for clustered nuclei segmentation."
 
 setup(
     name="cellori",
@@ -13,8 +13,9 @@ setup(
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
     packages=find_packages(),
-    install_requires=['matplotlib','numpy','opencv-python','pyqt5','scikit-image','stitchwell','tifffile'],
-    keywords=["nuclei","segmentation"],
+    install_requires=['matplotlib', 'numba', 'numpy', 'opencv-python', 'pyside6', 'scikit-image', 'scipy', 'simpleitk',
+                      'stitchwell', 'tifffile'],
+    keywords=["nuclei", "segmentation"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Science/Research",
