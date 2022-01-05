@@ -129,18 +129,18 @@ Guided Segmentation Tutorial
    :header-rows: 1
 
    * - Nuclei Diameter = 1
-     - Nuclei Diameter = 6
+     - Nuclei Diameter = 8.44
      - Nuclei Diameter = 15
-   * - 8116 Cells
+   * - 228 Cells
      - 65 Cells
-     - 12 Cells
-   * - .. image:: ../demo/nucleidiameter1.png
+     - 24 Cells
+   * - .. image:: ../demo/nuclei_diameter1.png
            :width: 300
            :alt: Nuclei Diameter = 1
      - .. image:: ../demo/default.png
            :width: 300
-           :alt: Nuclei Diameter = 6
-     - .. image:: ../demo/nucleidiameter15.png
+           :alt: Nuclei Diameter = 8.44
+     - .. image:: ../demo/nuclei_diameter15.png
            :width: 300
            :alt: Nuclei Diameter = 15
 
@@ -172,4 +172,4 @@ Guided Segmentation Tutorial
     masks,coords = Cellori('wm989.tif').segment()
     
     # Use custom parameters.
-    masks,coords = Cellori('wm989.tif').segment(sigma=1.5,block_size=13,nuclei_diameter=6)
+    masks,coords = Cellori('wm989.tif').segment(segmentation_mode='combined', threshold_locality=0.5, sigma=1.06, nuclei_diameter=8.44)
