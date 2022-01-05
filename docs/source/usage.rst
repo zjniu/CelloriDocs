@@ -50,27 +50,27 @@ Guided Segmentation Tutorial
    * Gaussian Sigma: Gaussian sigma used for denoising.
    * Nuclei Diameter: Estimated lower bound of nuclei diameters. Any objects smaller than this threshold will not be considered for segmentation.
     
-6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of background noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0.5, notice that some single nuclei are being split up into two or even three separate nuclei. However, a sigma that is too high could fail to split clustered nuclei, or worse, miss nuclei altogether, as seen in the segmentation when sigma is 3.5.
+6. We will first explore the efforts of the sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, or worse, miss nuclei altogether, as seen in the segmentation when sigma is 5.
 
 .. list-table::
    :widths: 33 33 33
    :header-rows: 1
 
-   * - Sigma = 0.5
-     - Sigma = 1.5
-     - Sigma = 3.5
-   * - 69 Cells
+   * - Sigma = 0
+     - Sigma = 1.06
+     - Sigma = 5
+   * - 66 Cells
      - 65 Cells
-     - 53 Cells
-   * - .. image:: ../demo/sigma0.5.png
+     - 62 Cells
+   * - .. image:: ../demo/sigma0.png
            :width: 300
-           :alt: Sigma = 0.5
+           :alt: Sigma = 0
      - .. image:: ../demo/default.png
            :width: 300
-           :alt: Sigma = 1.5
-     - .. image:: ../demo/sigma3.5.png
+           :alt: Sigma = 1.06
+     - .. image:: ../demo/sigma5.png
            :width: 300
-           :alt: Sigma = 3.5
+           :alt: Sigma = 5
 
 7. Next, we will explore the efforts of the block size parameter. A small block size works well when cell density is low, in which you are guaranteed to capture both background and foreground in any small neighborhood, allowing for successful local thresholding. If the cell density is high, a larger block size may be necessary to sample enough background, especially when trying to capture cells with low to intermediate intensity. Here, our cells are neither too sparse nor too dense, so any value of above 7 works well. Notice that when the block size is too small, we may only capture some cells or none at all, as seen in the segmentation for block sizes 3 and 5. In general, use a block size that is larger than your estimated cell diameter.
 
