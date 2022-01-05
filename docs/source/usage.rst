@@ -71,8 +71,36 @@ Guided Segmentation Tutorial
      - .. image:: ../demo/threshold_locality1.png
            :width: 300
            :alt: Threshold Locality = 1
+           
+8. However, notice that this image contains a large bright background spot. Increase the preview size using the slider and select it as the preview region.
+
+.. image:: ../demo/gui3.png
+           :width: 1000
+           :alt: GUI 3
+           
+9. At a threshold locality of 0, which is equivalent to taking a global threshold, noise within the bright spot is being picked up as cells. Increasing the threshold locality to 0.5 helps to solve this issue. Further increasing the threshold locality to 1 completely eliminates all noise. In general, increasing the threshold locality will decrease the number of cells segmented.
+
+.. list-table::
+   :widths: 33 33 33
+   :header-rows: 1
+
+   * - Threshold Locality = 0
+     - Threshold Locality = 0.5
+     - Threshold Locality = 1
+   * - 27 Cells
+     - 19 Cells
+     - 17 Cells
+   * - .. image:: ../demo/bright_spot_threshold_locality0.png
+           :width: 300
+           :alt: Threshold Locality = 0
+     - .. image:: ../demo/bright_spot_threshold_locality0.5.png
+           :width: 300
+           :alt: Threshold Locality = 0.5
+     - .. image:: ../demo/bright_spot_threshold_locality1.png
+           :width: 300
+           :alt: Threshold Locality = 1
     
-8. Next, we will explore the effects of the Gaussian sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, as seen in the segmentation when sigma is 5, or worse, miss nuclei altogether.
+10. Next, we will explore the effects of the Gaussian sigma parameter. A higher sigma results in more blurring, which reduces the issues of noise and over-segmentation of single nuclei. If we look at segmentation when sigma is 0 (essentially no filtering), notice that a single nuclei is incorrectly being split up into two. However, a sigma that is too high could fail to split clustered nuclei, as seen in the segmentation when sigma is 5, or worse, miss nuclei altogether.
 
 .. list-table::
    :widths: 33 33 33
@@ -93,24 +121,6 @@ Guided Segmentation Tutorial
      - .. image:: ../demo/gaussian_sigma5.png
            :width: 300
            :alt: Sigma = 5
-
-8. It is usually safer to use a larger block size, but one that is too large essentially equates to taking a global threshold, which is the exact issue that local thresholding aims to solve. Notice that this image contains a large bright background spot. Increase the preview size using the slider and select it as the preview region.
-
-.. image:: ../demo/gui3.png
-           :width: 1000
-           :alt: GUI 3
-           
-9. If we increase the block size to 25, many dots appear near the edge of the bright spot. As we lose locality with increasing block sizes, it becomes more difficult to determine whether this spot is an actual cell or just abnormally bright background.
-
-.. image:: ../demo/gui4.png
-           :width: 1000
-           :alt: GUI 4
-           
-10. Even at a block size of 13, you may have noticed a few dots being marked within the bright spot. Returning to a block size of 13, we can increase the contrast using the slider and zoom in on a smaller region. We will observe three cells within the bright spot that would otherwise be missed using a traditional global thresholding method.
-
-.. image:: ../demo/gui5.png
-           :width: 1000
-           :alt: GUI 5
            
 11. Finally, we will explore the efforts of the nuclei diameter parameter. This is perhaps the most basic out of the three parameters, as it simply disregards all objects smaller than the specified radii. While basic, selecting the wrong value for this parameter may have devastating effects.
 
