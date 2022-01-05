@@ -7,11 +7,11 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information
 
 project = 'Cellori'
-copyright = '2021, William Niu'
+copyright = '2022, William Niu'
 author = 'William Niu'
 
-release = '2.4'
-version = '2.4'
+release = '3.0'
+version = '3.0'
 
 # -- General configuration
 
@@ -54,3 +54,6 @@ autodoc_mock_imports = [
     'stitchwell',
     'tifffile'
 ]
+
+def setup(app):
+    app.add_css_file('styles.css')
